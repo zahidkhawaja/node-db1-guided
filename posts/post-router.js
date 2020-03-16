@@ -1,13 +1,23 @@
 const express = require('express');
-
-// database access using knex
-const db = require('../data/db-config.js');
-
 const router = express.Router();
 
-router.get('/', (req, res) => {
+// database access using knex START
+const db = require('../data/db-config.js');
 
-});
+function getAll() {
+  return db
+}
+// database access using knex END
+
+router.get('/', async (req, res) => {
+  try {
+    const data = await getAll()
+    res.status(200).json(data)
+  } catch (err) {
+    console.log(err)
+    res.status(500).json({ message: 'Fatal error getting all posts' })
+  }
+})
 
 router.get('/:id', (req, res) => {
 
