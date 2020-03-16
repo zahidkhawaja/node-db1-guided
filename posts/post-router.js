@@ -15,7 +15,6 @@ function getById(id) {
     .select('id', 'title', 'contents')
 }
 function create(post) {
-  // knex('books').insert({title: 'Slaughterhouse Five'})
   return db('posts')
     .insert(post)
 }
