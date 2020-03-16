@@ -56,8 +56,7 @@ router.get('/:id', async (req, res) => {
     if (!data.length) {
       res.status(200).json({ message: `No post with id ${req.params.id}` })
     } else {
-      const data = await edit(req.params.id, req.body)
-      res.status(200).json({ message: `${data} posts were affected` })
+      res.status(200).json(data[0])
     }
   } catch (err) {
     console.log(err)
