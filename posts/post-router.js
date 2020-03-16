@@ -95,7 +95,7 @@ router.delete('/:id', async (req, res) => {
     if (!data.length) {
       res.status(200).json({ message: `No post with id ${req.params.id}` })
     } else {
-      const data = await remove(req.param.id)
+      const data = await remove(req.params.id)
       res.status(200).json({ message: `${data} posts were affected` })
     }
   } catch (err) {
