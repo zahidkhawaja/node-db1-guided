@@ -91,7 +91,7 @@ router.put('/:id', async (req, res) => {
 
 router.delete('/:id', async (req, res) => {
   try {
-    const data = await remove(req.params.id)
+    const data = await getById(req.params.id)
     if (!data.length) {
       res.status(200).json({ message: `No post with id ${req.params.id}` })
     } else {
