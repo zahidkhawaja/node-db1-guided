@@ -10,14 +10,23 @@ function getAll() {
     .from('posts')
 }
 function getById(id) {
-  return db
-    
+  // knex('users').where({
+  //   first_name: 'Test',
+  //   last_name:  'User'
+  // }).select('id')
+  return db('posts')
+    .where({ id })
+    .select('id', 'title', 'contents')
 }
 // database access using knex END
 router.get('/:id', async (req, res) => {
   try {
     const data = await getById(req.params.id)
-    res.status(200).json(data)
+    if (!data.length) {
+      res.status(200).json({ message: `No post with id ${req.params.idÎ}`})
+    } else {
+      res.status(200).json(data)
+    }
   } catch (err) {
     console.log(err)
     res.status(500).json({ message: 'Fatal error getting post by id' })
