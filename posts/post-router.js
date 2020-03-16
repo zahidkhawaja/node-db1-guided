@@ -46,7 +46,7 @@ router.post('/', async (req, res) => {
     res.status(200).json({ message: `A new post with id of ${data[0]} was created` })
   } catch (err) {
     console.log(err)
-    res.status(500).json({ message: 'Fatal error getting all posts' })
+    res.status(500).json({ message: 'Fatal error creating new post' })
   }
 })
 
@@ -85,7 +85,7 @@ router.put('/:id', async (req, res) => {
     }
   } catch (err) {
     console.log(err)
-    res.status(500).json({ message: 'Fatal error getting post by id' })
+    res.status(500).json({ message: 'Fatal error updating post by id' })
   }
 })
 
@@ -100,7 +100,7 @@ router.delete('/:id', async (req, res) => {
     }
   } catch (err) {
     console.log(err)
-    res.status(500).json({ message: 'Fatal error getting post by id' })
+    res.status(500).json({ message: 'Fatal error deleting post by id' })
   }
 })
 
