@@ -14,11 +14,25 @@ function getById(id) {
     .where({ id })
     .select('id', 'title', 'contents')
 }
+function create(post) {
+  // knex('books').insert({title: 'Slaughterhouse Five'})
+  return db('posts')
+    .insert(post)
+}
 // database access using knex END
+router.post('/', async (req, res) => {
+  try {
+    const data = await create(req.body)
+    res.status(200).json({ message: `A new post with id of ${data[0]} was created`})
+  } catch (err) {
+    console.log(err)
+    res.status(500).json({ message: 'Fatal error getting all posts' })
+  }
+})
 
 router.get('/:id', async (req, res) => {
   try {
-    const data = await getByIdkjsdahffkjasdhfkajsdfhasjkdlfhadslkjfhalkjh(req.params.id)
+    const data = await getById(req.params.id)
     if (!data.length) {
       res.status(200).json({ message: `No post with id ${req.params.id}`})
     } else {
@@ -39,10 +53,6 @@ router.get('/', async (req, res) => {
     res.status(500).json({ message: 'Fatal error getting all posts' })
   }
 })
-
-router.post('/', (req, res) => {
-
-});
 
 router.put('/:id', (req, res) => {
 
