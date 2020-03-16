@@ -6,6 +6,8 @@ const db = require('../data/db-config.js');
 
 function getAll() {
   return db
+    .select('id', 'title', 'contents')
+    .from('posts')
 }
 // database access using knex END
 
