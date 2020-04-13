@@ -29,7 +29,21 @@ router.get('/:id', (req, res) => {
 });
 
 router.post('/', (req, res) => {
-
+    const postData = req.body;
+    db('posts')
+    .insert(postData, 'id')
+    .then(ids => {
+        // insert returns an array that contains the id of what we inserted
+        const id = ids[0];
+        db('posts')
+        .where({ id })
+        .first().then(post => {
+            res.status(200).json({data: post})
+        })
+    })
+    .catch(error => {
+        res.status(500).json({error: error.message})
+    })
 });
 
 router.put('/:id', (req, res) => {
