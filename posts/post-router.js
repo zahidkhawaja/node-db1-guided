@@ -31,6 +31,7 @@ router.get('/:id', (req, res) => {
 router.post('/', (req, res) => {
     const postData = req.body;
     db('posts')
+    // the second 'id' argument causes a warning and isn't needed for sqlite, but it's needed for other databases. So we keep it.
     .insert(postData, 'id')
     .then(ids => {
         // insert returns an array that contains the id of what we inserted
@@ -46,8 +47,13 @@ router.post('/', (req, res) => {
     })
 });
 
-router.put('/:id', (req, res) => {
-
+router.patch('/:id', (req, res) => {
+    const changes = req.body;
+    const { id } = req.params;
+    db('posts').where( {id} ).update(changes)
+    .then(count => {
+        count > 0 ? res.status(200).json({ message: "Update successful"}) : res.status(404).json({ message: "No posts with that ID found"})
+    })
 });
 
 router.delete('/:id', (req, res) => {
