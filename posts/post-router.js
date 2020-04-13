@@ -57,7 +57,13 @@ router.patch('/:id', (req, res) => {
 });
 
 router.delete('/:id', (req, res) => {
-
+    db('posts').where('id', req.params.id).del()
+    .then(post => {
+        res.status(200).json(post)
+    })
+    .catch(error => {
+        res.status(500).json({ error: error.message})
+    })
 });
 
 module.exports = router;
